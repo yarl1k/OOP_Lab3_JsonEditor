@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:JsonEditor.Models"
+             x:Class="JsonEditor.MainPage"
+             Title="JSON Editor">
+
+    <Grid RowDefinitions="Auto, Auto, *, Auto" Padding="15" RowSpacing="10">
+
+        <HorizontalStackLayout Grid.Row="0" Spacing="10">
+            <Button Text="📂 Відкрити" Clicked="OnOpenClicked" BackgroundColor="Cyan"/>
+            <Button Text="💾 Зберегти" Clicked="OnSaveClicked" BackgroundColor="LightGreen"/>
+            <Button x:Name="ExitButton" Text="Вихід" Clicked="ExitButton_Clicked" BackgroundColor="Red"/>
+            <Label x:Name="FilePathLabel" Text="Файл не обрано" VerticalOptions="Center"/>
+        </HorizontalStackLayout>
+
+        <Grid Grid.Row="1" ColumnDefinitions="*, Auto, Auto" ColumnSpacing="10">
+            <Entry x:Name="SearchEntry" Placeholder="Пошук..." Grid.Column="0"/>
+
+            <Picker x:Name="SortPicker" Title="Критерій" Grid.Column="1" WidthRequest="150">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Назва</x:String>
+                        <x:String>Департамент</x:String>
+                        <x:String>Локація</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+                <Picker.SelectedIndex>0</Picker.SelectedIndex>
+            </Picker>
+
+            <Button Text="🔍 Знайти" Clicked="OnSearchClicked" Grid.Column="2"/>
+        </Grid>
+
+        <Border Grid.Row="2" Stroke="Gray" StrokeThickness="1">
+            <Grid RowDefinitions="40, *">
+                <Grid Grid.Row="0" ColumnDefinitions="0.5*, 2*, 1.5*, 1.5*, 1*, 1*">
+                    <Label Text="ID" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold" Grid.Column="0"/>
+                    <Label Text="Назва" VerticalOptions="Center" Padding="5,0" FontAttributes="Bold" Grid.Column="1"/>
+                    <Label Text="Департамент" VerticalOptions="Center" Padding="5,0" FontAttributes="Bold" Grid.Column="2"/>
+                    <Label Text="Локація" VerticalOptions="Center" Padding="5,0" FontAttributes="Bold" Grid.Column="3"/>
+                    <Label Text="Коли" VerticalOptions="Center" Padding="5,0" FontAttributes="Bold" Grid.Column="4"/>
+                    <Label Text="Дії" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold" Grid.Column="5"/>
+                </Grid>
+
+                <CollectionView x:Name="EventsList" Grid.Row="1">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:SPF_Event">
+                            <Grid ColumnDefinitions="0.5*, 2*, 1.5*, 1.5*, 1*, 1*" Padding="0,5">
+                                <BoxView Grid.ColumnSpan="5" HeightRequest="1" Color="LightGray" VerticalOptions="End"/>
+
+                                <Label Text="{Binding Event_id}" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="0"/>
+                                <Label Text="{Binding Event_name}" VerticalOptions="Center" Grid.Column="1"/>
+                                <Label Text="{Binding Department}" VerticalOptions="Center" Grid.Column="2"/>
+                                <Label Text="{Binding Event_location}" FontSize="12" VerticalOptions="Center" Grid.Column="3"/>
+                                <Label Text="{Binding FullDateTime}" FontSize="12" VerticalOptions="Center" Grid.Column="4"/>
+
+                                <HorizontalStackLayout Grid.Column="5" HorizontalOptions="Center" Spacing="5">
+                                    <Button Text="✏️" Padding="0" WidthRequest="35" HeightRequest="35" 
+                                            Clicked="OnEditClicked" CommandParameter="{Binding .}"/>
+                                    <Button Text="🗑️" Padding="0" WidthRequest="35" HeightRequest="35" BackgroundColor="Red" 
+                                            Clicked="OnDeleteClicked" CommandParameter="{Binding .}"/>
+                                </HorizontalStackLayout>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="3" ColumnDefinitions="*, Auto">
+            <Button Text="➕ Додати новий запис" Clicked="OnAddClicked" Grid.Column="0" HorizontalOptions="Start"/>
+            <Button Text="ℹ️ Про програму" Clicked="OnAboutClicked" Grid.Column="1"/>
+        </Grid>
+
+    </Grid>
+</ContentPage>
