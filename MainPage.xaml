@@ -33,31 +33,30 @@
 
         <Border Grid.Row="2" Stroke="Gray" StrokeThickness="1">
             <Grid RowDefinitions="40, *">
-                <Grid Grid.Row="0" ColumnDefinitions="0.5*, 2*, 1.5*, 1.5*, 1*, 1*">
-                    <Label Text="ID" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold" Grid.Column="0"/>
-                    <Label Text="Назва" VerticalOptions="Center" Padding="5,0" FontAttributes="Bold" Grid.Column="1"/>
-                    <Label Text="Департамент" VerticalOptions="Center" Padding="5,0" FontAttributes="Bold" Grid.Column="2"/>
-                    <Label Text="Локація" VerticalOptions="Center" Padding="5,0" FontAttributes="Bold" Grid.Column="3"/>
-                    <Label Text="Коли" VerticalOptions="Center" Padding="5,0" FontAttributes="Bold" Grid.Column="4"/>
-                    <Label Text="Дії" VerticalOptions="Center" HorizontalOptions="Center" FontAttributes="Bold" Grid.Column="5"/>
+                <Grid Grid.Row="0" ColumnDefinitions="2*, 2*, 2*, 1.5*, 1*">
+                    <Label Text="Назва" Grid.Column="0" Padding="48,0,0,0" FontAttributes="Bold" VerticalOptions="Center"/>
+                    <Label Text="Департамент" Grid.Column="1" Padding="5,0" FontAttributes="Bold" VerticalOptions="Center"/>
+                    <Label Text="Локація" Grid.Column="2" Padding="5,0" FontAttributes="Bold" VerticalOptions="Center"/>
+                    <Label Text="Коли" Grid.Column="3" Padding="5,0" FontAttributes="Bold" VerticalOptions="Center"/>
+                    <Label Text="Дії" Grid.Column="4" HorizontalOptions="Center" FontAttributes="Bold" VerticalOptions="Center"/>
                 </Grid>
+
 
                 <CollectionView x:Name="EventsList" Grid.Row="1">
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:SPF_Event">
-                            <Grid ColumnDefinitions="0.5*, 2*, 1.5*, 1.5*, 1*, 1*" Padding="0,5">
-                                <BoxView Grid.ColumnSpan="5" HeightRequest="1" Color="LightGray" VerticalOptions="End"/>
+                            <Grid ColumnDefinitions="2*, 2*, 2*, 1.5*, 1*" Padding="0,5">
+                                <BoxView Grid.ColumnSpan="4" HeightRequest="1" Color="LightGray" VerticalOptions="End"/>
 
-                                <Label Text="{Binding Event_id}" HorizontalOptions="Center" VerticalOptions="Center" Grid.Column="0"/>
-                                <Label Text="{Binding Event_name}" VerticalOptions="Center" Grid.Column="1"/>
-                                <Label Text="{Binding Department}" VerticalOptions="Center" Grid.Column="2"/>
-                                <Label Text="{Binding Event_location}" FontSize="12" VerticalOptions="Center" Grid.Column="3"/>
-                                <Label Text="{Binding FullDateTime}" FontSize="12" VerticalOptions="Center" Grid.Column="4"/>
+                                <Label Text="{Binding Event_name}" Grid.Column="0" Padding="48,0,0,0" VerticalOptions="Center"/>
+                                <Label Text="{Binding Department}" Grid.Column="1" Padding="5,0,0,0" VerticalOptions="Center"/>
+                                <Label Text="{Binding Event_location}" Grid.Column="2" Padding="5,0,0,0" FontSize="12" VerticalOptions="Center"/>
+                                <Label Text="{Binding FullDateTime}" Grid.Column="3" Padding="5,0,0,0" FontSize="12" VerticalOptions="Center"/>
 
-                                <HorizontalStackLayout Grid.Column="5" HorizontalOptions="Center" Spacing="5">
-                                    <Button Text="✏️" Padding="0" WidthRequest="35" HeightRequest="35" 
+                                <HorizontalStackLayout Grid.Column="4" HorizontalOptions="Center" Spacing="5">
+                                    <Button Text="✏️" Padding="0" WidthRequest="35" HeightRequest="35"
                                             Clicked="OnEditClicked" CommandParameter="{Binding .}"/>
-                                    <Button Text="🗑️" Padding="0" WidthRequest="35" HeightRequest="35" BackgroundColor="Red" 
+                                    <Button Text="🗑️" Padding="0" WidthRequest="35" HeightRequest="35" BackgroundColor="Red"
                                             Clicked="OnDeleteClicked" CommandParameter="{Binding .}"/>
                                 </HorizontalStackLayout>
                             </Grid>
